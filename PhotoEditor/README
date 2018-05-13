@@ -1,0 +1,5 @@
+Nole Lin, Prasiddha Karki
+October 22, 2016
+
+This program is able to read a PPM image, make several modifications (crop, invert colors, and swap colors), and write it to an outfile. 
+Part 2: The program is now able to to apply a grayscale, modify brightness, modify the contrast, and blur or sharpen a PPM image.
