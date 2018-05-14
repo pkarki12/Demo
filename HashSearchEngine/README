@@ -1,0 +1,31 @@
+Prasiddha Karki     pkarki1@jhu.edu
+
+    For my HashMap implementation of Map, I used a separate chaining framework with a grow method and the built-in Java hashCode function, which uses a product sum algorithm over the entire string. So when a key is inputted, which is the URL, I get the output and take the modulus of it with the capacity of the defined table. The result of the modulus provides the index to insert into the hash table. To construct the hash table, I used an ArrayList of Nodes as the base, and to store multiple values in the same index, I used a doubly linked list of Nodes at the specified index of the ArrayList.
+
+    During the development of HashMap, I started with the idea of using the basic separate chaining without a grow method to increase the size of the table. But when I ran the benchmarks, I saw that the performance was not optimal. Therefore, I decided to add the grow method, in which the program would check when the table has had a certain percentage of indices filled and then it would double the size of the table. Adding this paradigm does increase the amount of time it takes to insert values into the hash table, but also decreases the amount of time it takes to find values in the table. Here are the benchmarks for HashMap.java:
+    
+without grow:
+   getLinear	       200,000	         7,678 ns/op	           -24 B/op
+   getRandom	       100,000	        10,459 ns/op	            33 B/op
+insertLinear	       200,000	         8,989 ns/op	           204 B/op
+insertRandom	       100,000	        11,149 ns/op	           285 B/op
+lookupLinear	       200,000	         7,458 ns/op	             2 B/op
+lookupRandom	       100,000	        10,509 ns/op	            33 B/op
+   putLinear	       200,000	         7,954 ns/op	             2 B/op
+   putRandom	       100,000	        10,667 ns/op	            97 B/op
+removeLinear	       100,000	        11,656 ns/op	           -11 B/op
+removeRandom	       100,000	        12,421 ns/op	           304 B/op
+
+with grow:
+   getLinear	       200,000	         5,694 ns/op	            87 B/op
+   getRandom	       200,000	         7,755 ns/op	           149 B/op
+insertLinear	       100,000	        14,022 ns/op	            42 B/op
+insertRandom	       100,000	        16,029 ns/op	           523 B/op
+lookupLinear	       200,000	         5,867 ns/op	            41 B/op
+lookupRandom	       200,000	         7,328 ns/op	           120 B/op
+   putLinear	       200,000	         6,185 ns/op	            91 B/op
+   putRandom	       200,000	         7,565 ns/op	            91 B/op
+removeLinear	       200,000	         7,753 ns/op	         1,183 B/op
+removeRandom	       200,000	         9,433 ns/op	           511 B/op
+
+    The benchmarks show that the addition of the grow method does indeed increase the efficiency of all the operations except insert. I felt this was a favorable tradeoff, since the implementation is used for a search engine, so I want the search functionality to be as fast as possible. When I tested JHUgle with the largest text file, I found that the index was created in only a matter of a few second and search items were found almost instantly. I am overall pleased with the performance of the code.
